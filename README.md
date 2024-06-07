@@ -1,4 +1,5 @@
-Graph creator and Dijkstra's algorithm visualisation.
+Instructions:
+
 LMB click:
 -on background creates vertex
 -on vertex selects/deselects it
