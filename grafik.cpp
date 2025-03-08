@@ -1,10 +1,10 @@
 #include <iostream>
-#include <SDL2\SDL.h>
 #include <vector>
 #include <time.h>
 #include <thread>
 #include <algorithm>
 #include <queue>
+#include <SDL2/SDL.h>
 
 //Measurements of the window
 const int WIDTH = 600, HEIGHT = 600;
@@ -161,7 +161,7 @@ void Dijkstra(){
             std::vector<int> predecessors(n+1, -1);
             distances[start]=0.0;
             std::priority_queue< std::pair<float , int> > Q;
-            Q.push({0.0, start});
+            Q.push(std::make_pair(0.0, start));
             while(!Q.empty()){
                 int v = Q.top().second;
                 Q.pop();
@@ -169,12 +169,12 @@ void Dijkstra(){
                 for(int i=0; i<edges[v].size(); i++){
                     if(edges[v][i]!=-1.0f){
                         SDL_Delay(100);
-                        coloredEdges.push_back({v,i});
+                        coloredEdges.push_back(std::make_pair(v,i));
                         float w = edges[v][i];
                         if(distances[v]+w<distances[i]){
                             distances[i]=distances[v]+w;
                             predecessors[i]=v;
-                            Q.push({-w, i});
+                            Q.push(std::make_pair(-w, i));
                         }
                     }
                 }
@@ -200,12 +200,12 @@ void Dijkstra(){
                     coloredVertexes = ver;
                     break;
                 }
-                coloredEdges.push_back({prev, in});
+                coloredEdges.push_back(std::make_pair(prev, in));
                 coloredVertexes.push_back(in);
                 prev = in;
                 
             }
-            coloredEdges.push_back({prev, end});
+            coloredEdges.push_back(std::make_pair(prev, end));
             coloredVertexes.push_back(end);
             
             first = -1;
